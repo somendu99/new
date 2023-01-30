@@ -1,0 +1,35 @@
+pipeline{
+    agent any
+    parameters {
+  string defaultValue: 'soumendu', description: 'who are you?', name: 'name'
+  choice choices: ['pune', 'cuttack', 'bangalore'], description: 'pick one', name: 'city'
+}
+stages{
+        stage("Param Demo"){
+            steps{
+                echo "hello ${params.person}"
+                echo "Toggle: ${params.TOGGLE}"
+            }
+        }
+        stage("continue?"){
+            input{
+                message "Should we continue?"
+                ok "yes we should"
+            }
+            steps{
+                echo "deploy on prod"
+            }
+            }
+        }
+        post { 
+        always { 
+            echo 'I will always say Hello again!'
+        }
+        failure{
+            echo "failure"
+        }
+        success{
+            echo "success"
+        }
+    }
+    }
